@@ -1,28 +1,63 @@
 package Tabuleiro;
+
 //import Celula;
+import java.util.ArrayList;
+//import Tabuleiro;
 
 public class Tabuleiro {
 	
-	private int linhas = 10;
-	private int colunas = 10;
+	private int linha = 10;
+	private int coluna = 10;
 	
 	private Tabuleiro[][] matriz;
 	
-	public Tabuleiro() {
+	public Tabuleiro(int Tabuleiro[][]) {
 		
-		matriz = new Tabuleiro [this.linhas][this.colunas];
+		matriz = new Tabuleiro [this.linha][this.coluna];
 		
-		for (int i = 0; i < this.linhas; i++) {
-			for (int j = 0; j < this.colunas; j++) {
+		//arraylist com navios
+		ArrayList<Navios> navios = new ArrayList<>();
+		
+		//tentar adicionar os tipos de navios dentro da lista
+		//navios.add(new PortaAvioes());
+
+		
+		for (int i = 0; i < this.linha; i++) {
+			for (int j = 0; j < this.coluna; j++) {
 				
-				matriz [i][j] = new Tabuleiro();
+				matriz = new Tabuleiro[this.linha][this.coluna];
+				
 				//System.out.print("");
-			}
+			}			
 		}
+				
+     }
+	
+	
+	public int getLinha() {
+		
+		return this.linha;
+		
 	}
 	
-	//public Tabuleiro[][] setMatriz{
+	public int getColuna() {
 		
-	//	return this.matriz;
-	//}
+		return this.coluna;
+		
+	}
+	
+	public Tabuleiro[][] getMatriz() {
+		
+		return this.matriz;
+		
+	}
+	
+	
+	
+	//public void print() {
+        
+        //System.out.println("");
+        
+    //}
+
 }

@@ -10,14 +10,12 @@ public class Tabuleiro {
 	
 	private int linha = 10;
 	private int coluna = 10;
-	Scanner scanner = new Scanner(System.in);
+	private int postitionX;
+	private int postiionY;
+	private int direction;
+	private Scanner scanner = new Scanner(System.in);
 	
 	private int[][] matriz;
-
-	public static void main(String args[]) {
-		Tabuleiro tabuleiro = new Tabuleiro();
-		tabuleiro.PrintTab(tabuleiro.matriz);
-	}
 	
 	public Tabuleiro() {
 		
@@ -37,7 +35,7 @@ public class Tabuleiro {
 		}
 		
 	
-	public static void PrintTab(int[][] matriz) {
+	public void PrintTab(int[][] matriz) {
 		System.out.println("       0     1     2     3     4     5     6     7     8     9 ");
         System.out.println("    +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+");
         
@@ -73,9 +71,17 @@ public class Tabuleiro {
 		
 	}
 	
-	public static int Input(Scanner scanner) {
+	public int Input(Scanner scanner) {
 
 		return scanner.nextInt();
+	}
+
+	public void setPositions(int x, int y, int direction) {
+
+		this.postitionX = x;
+		this.postiionY = y;
+		this.direction = direction;
+
 	}
 	
 	

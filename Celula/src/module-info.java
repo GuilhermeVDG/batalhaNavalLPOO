@@ -1,9 +1,0 @@
-/**
- * 
- */
-/**
- * @author brunacruz
- *
- */
-module Celula {
-}

@@ -7,7 +7,7 @@ public class Celula {
 	private int valor;
 	private boolean posicao;
 	private int Navios[][];
-	private int Ataques[][];
+	//private int Ataques[][];
 	
 	public Celula() {
 		
@@ -51,23 +51,23 @@ public class Celula {
 		
 	}
 	
-	public boolean getPosicao (boolean posicao) {
+	public boolean getPosicao () {
 		
 		return this.posicao; 
 		
 	}
 	
 
-	public int[][] getNavios (int Navios[][]) {
+	public int[][] getNavios () {
 	
 		return this.Navios;
 	
 }
 	
-	public int[][] getAtaques (int Ataques[][]) {
+	//public int[][] getAtaques (int Ataques[][]) {
 		
-		return this.Ataques;
+		//return this.Ataques;
 		
-	}
+	//}
 
 }

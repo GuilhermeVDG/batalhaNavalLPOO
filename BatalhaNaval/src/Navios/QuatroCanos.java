@@ -1,10 +1,10 @@
-package Tabuleiro;
+package Navios;
 
-public abstract class TresCanos implements Navios {
-	
-	private int TamanhoLinha = 3;
+public abstract class QuatroCanos implements Navios {
+		
+	private int TamanhoLinha = 4;
 	private int TamanhoColuna = 0;
-	
+		
 	@Override
 	public int getTamanhoLinha() {
 		// TODO Auto-generated method stub
@@ -15,4 +15,5 @@ public abstract class TresCanos implements Navios {
 		// TODO Auto-generated method stub
 		return this.TamanhoColuna;
 	}
+
 }

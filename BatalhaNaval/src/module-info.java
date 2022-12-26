@@ -5,5 +5,5 @@
  * @author brunacruz
  *
  */
-module Tabuleiro {
+module BatalhaNaval {
 }

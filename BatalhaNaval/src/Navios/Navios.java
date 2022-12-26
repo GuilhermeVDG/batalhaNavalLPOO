@@ -1,4 +1,4 @@
-package Tabuleiro;
+package Navios;
 
 public interface Navios {
 

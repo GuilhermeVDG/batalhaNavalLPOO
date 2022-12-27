@@ -1,21 +1,21 @@
 package Tabuleiro;
 
 
-
 //import java.util.ArrayList;
 import java.util.Scanner;
 
 
 public class Tabuleiro {
 	
-	private int linha = 10;
-	private int coluna = 10;
-	private int postitionX;
-	private int postiionY;
-	private int direction;
-	private Scanner scanner = new Scanner(System.in);
+	public int linha = 10;
+	public int coluna = 10;
+	public int positionX;
+	public int positionY;
+	public int direction;
+	public Scanner scanner = new Scanner(System.in);
 	
-	private int[][] matriz;
+	public int[][] matriz;
+	public int[][] Navios;
 	
 	public Tabuleiro() {
 		
@@ -52,6 +52,37 @@ public class Tabuleiro {
             
  }
 
+	public void setPosicaoPortaAvioes() {
+			for(int i = 0; i < 3; i++){
+					for(int j = 0; j < 3; j++){
+						matriz[this.positionX][this.positionY + i] = 1;        
+						matriz[this.positionX + j][this.positionY + 1] = 1;							 																						
+					}
+			} 
+	}
+
+	public void setPosicaoQuatroCanos() {
+		for(int i = 0; i < 4; i++){
+			matriz[this.positionX][this.positionY + i] = 1;
+		}
+	}
+
+	public void setPosicaoTresCanos() {
+		for(int i = 0; i < 3; i++){
+			matriz[this.positionX][this.positionY + i] = 1;
+		}
+	}
+
+	public void setPosicaoDoisCanos() {
+		for(int i = 0; i < 2; i++){
+			matriz[this.positionX][this.positionY + i] = 1;
+		}
+	}
+
+	public void setPosicaoUmCano() {
+		matriz[this.positionX][this.positionY] = 1;
+	}
+
 
 	public int getLinha() {
 		
@@ -76,19 +107,11 @@ public class Tabuleiro {
 		return scanner.nextInt();
 	}
 
-	public void setPositions(int x, int y, int direction) {
+	public void setPositions(int x, int y) {
 
-		this.postitionX = x;
-		this.postiionY = y;
-		this.direction = direction;
+		this.positionX = x;
+		this.positionY = y;
 
 	}
-	
-	
-	//public void print() {
-        
-        //System.out.println("");
-        
-    //}
 
 }

@@ -1,7 +1,9 @@
 package Navios;
+import Jogador.Jogador;
 
-public class DoisCanos {
-  public DoisCanos () {
-    super(2, 3);
+
+public class DoisCanos extends Navio{
+  public DoisCanos (Jogador jogador) {
+    super(2, 3, jogador);
   }
 }

@@ -15,11 +15,11 @@ public class Jogador {
 
      public Jogador(int numero) {
         this.tabuleiro = new Tabuleiro();
-        this.umCano = new UmCano();
-        this.doisCanos = new DoisCanos();
-        this.tresCanos = new TresCanos();
-        this.quatroCanos = new QuatroCanos();
-        this.portaAvioes = new PortaAvioes();
+        this.umCano = new UmCano(this);
+        this.doisCanos = new DoisCanos(this);
+        this.tresCanos = new TresCanos(this);
+        this.quatroCanos = new QuatroCanos(this);
+        this.portaAvioes = new PortaAvioes(this);
         this.numero = numero;
 
      }
@@ -64,7 +64,7 @@ public class Jogador {
             int x = tabuleiro.InputNum(tabuleiro.scanner);
             System.out.println("Insira a posicao y: ");
             int y = tabuleiro.InputNum(tabuleiro.scanner);
-            System.out.print("Insira a direcao da posicao(c ou d");
+            System.out.print("Insira a direcao da posicao(c ou b");
             String direcao = tabuleiro.InputStr(tabuleiro.scanner);
 
                 if(direcao.equals("c")) {
@@ -79,8 +79,4 @@ public class Jogador {
 
         }
      }
-
-     public void printNavios() {
-        List <Navio> Navios = ArrayList 
-     } 
  }

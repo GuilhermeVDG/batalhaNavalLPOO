@@ -1,9 +1,9 @@
 package Navios;
 
 public class PortaAvioes extends Navio {
-  private quantidadeDePecasEmY;
+  // private quantidadeDePecasEmY;
   public PortaAvioes () {
-    super(3, 1);
-    this.quantidadeDePecasEmY = 3;
+    super(5, 1);
+    // this.quantidadeDePecasEmY = 3;
   }
 }

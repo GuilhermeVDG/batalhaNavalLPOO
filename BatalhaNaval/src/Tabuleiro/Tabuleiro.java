@@ -18,6 +18,9 @@ public class Tabuleiro {
 	public int[][] Navios;
 	
 	public Tabuleiro() {
+		
+		
+		
 		matriz = new int[this.linha][this.coluna];
 		
 		
@@ -29,7 +32,7 @@ public class Tabuleiro {
 			}
 		}
 				     
-	}
+		}
 		
 	
 	public void PrintTab(int[][] matriz) {
@@ -49,7 +52,7 @@ public class Tabuleiro {
             
  }
 
-	public void setPosicaoPortaAvioes() {
+	public void setPosicaoPortaAvioes(int positionX, int positionY) {
 			for(int i = 0; i < 3; i++){
 					for(int j = 0; j < 3; j++){
 						matriz[this.positionX][this.positionY + i] = 1;        
@@ -58,27 +61,122 @@ public class Tabuleiro {
 			} 
 	}
 
-	public void setPosicaoQuatroCanos() {
-		for(int i = 0; i < 4; i++){
-			matriz[this.positionX][this.positionY + i] = 1;
+	public void setPosicaoNavios(int tamanho) {
+		if(tamanho == 1){
+			matriz[this.positionX][this.positionY] = 1;
+		}
+		else if(tamanho == 2){
+			for(int i = 0; i < 2; i++){
+				matriz[this.positionX][this.positionY + i] = 1;
+			}
+		}
+		else if(tamanho == 3) {
+			for(int i = 0; i < 3; i++){
+				matriz[this.positionX][this.positionY + i] = 1;
+			}
+		}
+		else if(tamanho == 4){
+			for(int i = 0; i < 4; i++){
+				matriz[this.positionX][this.positionY + i] = 1;
+			}
+		}
+		else if(tamanho == 5){
+			for(int i = 0; i < 3; i++){
+					for(int j = 0; j < 3; j++){
+						matriz[this.positionX][this.positionY + i] = 1;        
+						matriz[this.positionX + j][this.positionY + 1] = 1;							 																						
+					}
+			}
 		}
 	}
 
-	public void setPosicaoTresCanos() {
-		for(int i = 0; i < 3; i++){
-			matriz[this.positionX][this.positionY + i] = 1;
+		public void setPosicaoNavios2(int tamanho) {
+		if(tamanho == 1){
+			matriz[this.positionX][this.positionY] = 1;
+		}
+		else if(tamanho == 2){
+			for(int i = 0; i < 2; i++){
+				matriz[this.positionX][this.positionY - i] = 1;
+			}
+		}
+		else if(tamanho == 3) {
+			for(int i = 0; i < 3; i++){
+				matriz[this.positionX][this.positionY - i] = 1;
+			}
+		}
+		else if(tamanho == 4){
+			for(int i = 0; i < 4; i++){
+				matriz[this.positionX][this.positionY - i] = 1;
+			}
+		}
+		else if(tamanho == 5){
+			for(int i = 0; i < 3; i++){
+					for(int j = 0; j < 3; j++){
+						matriz[this.positionX][this.positionY + i] = 1;        
+						matriz[this.positionX + j][this.positionY + 1] = 1;							 																						
+					}
+			}
 		}
 	}
 
-	public void setPosicaoDoisCanos() {
-		for(int i = 0; i < 2; i++){
-			matriz[this.positionX][this.positionY + i] = 1;
+	public void setPosicaoNavios3(int tamanho) {
+		if(tamanho == 1){
+			matriz[this.positionX][this.positionY] = 1;
+		}
+		else if(tamanho == 2){
+			for(int j = 0; j < 2; j++){
+				matriz[this.positionX - j][this.positionY] = 1;
+			}
+		}
+		else if(tamanho == 3) {
+			for(int j = 0; j < 3; j++){
+				matriz[this.positionX - j][this.positionY] = 1;
+			}
+		}
+		else if(tamanho == 4){
+			for(int j = 0; j < 4; j++){
+				matriz[this.positionX - j][this.positionY] = 1;
+			}
+		}
+		else if(tamanho == 5){
+			for(int i = 0; i < 3; i++){
+					for(int j = 0; j < 3; j++){
+						matriz[this.positionX][this.positionY + i] = 1;        
+						matriz[this.positionX + j][this.positionY + 1] = 1;							 																						
+					}
+			}
 		}
 	}
 
-	public void setPosicaoUmCano() {
-		matriz[this.positionX][this.positionY] = 1;
+	public void setPosicaoNavios4(int tamanho) {
+		if(tamanho == 1){
+			matriz[this.positionX][this.positionY] = 1;
+		}
+		else if(tamanho == 2){
+			for(int j = 0; j < 2; j++){
+				matriz[this.positionX + j][this.positionY] = 1;
+			}
+		}
+		else if(tamanho == 3) {
+			for(int j = 0; j < 3; j++){
+				matriz[this.positionX + j][this.positionY] = 1;
+			}
+		}
+		else if(tamanho == 4){
+			for(int j = 0; j < 4; j++){
+				matriz[this.positionX + j][this.positionY] = 1;
+			}
+		}
+		else if(tamanho == 5){
+			for(int i = 0; i < 3; i++){
+					for(int j = 0; j < 3; j++){
+						matriz[this.positionX][this.positionY + i] = 1;        
+						matriz[this.positionX + j][this.positionY + 1] = 1;							 																						
+					}
+			}
+		}
 	}
+	
 
 
 	public int getLinha() {
@@ -99,10 +197,15 @@ public class Tabuleiro {
 		
 	}
 	
-	public int Input(Scanner scanner) {
+	public int InputNum(Scanner scanner) {
 
 		return scanner.nextInt();
 	}
+
+	public String InputStr(Scanner scanner) {
+
+		return scanner.nextLine();
+	}	
 
 	public void setPositions(int x, int y) {
 
@@ -110,5 +213,5 @@ public class Tabuleiro {
 		this.positionY = y;
 
 	}
-
 }
+	

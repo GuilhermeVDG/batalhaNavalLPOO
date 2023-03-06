@@ -18,9 +18,6 @@ public class Tabuleiro {
 	public int[][] Navios;
 	
 	public Tabuleiro() {
-		
-		
-		
 		matriz = new int[this.linha][this.coluna];
 		
 		
@@ -32,7 +29,7 @@ public class Tabuleiro {
 			}
 		}
 				     
-		}
+	}
 		
 	
 	public void PrintTab(int[][] matriz) {

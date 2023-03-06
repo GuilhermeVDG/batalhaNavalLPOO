@@ -7,6 +7,7 @@ public class Jogo {
     public void Jogo () {
     }
 
+
     public static void main(String args[]) {
         Tabuleiro tabuleiro = new Tabuleiro();
         tabuleiro.PrintTab(tabuleiro.matriz);

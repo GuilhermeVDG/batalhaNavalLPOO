@@ -50,7 +50,7 @@ public class Tabuleiro {
         }
 
             
- }
+	}
 
 	public void setPosicaoPortaAvioes(int positionX, int positionY) {
 			for(int i = 0; i < 3; i++){
@@ -61,9 +61,9 @@ public class Tabuleiro {
 			} 
 	}
 
-	public void setPosicaoNavios(int tamanho, String orientacao, String direcao) {
-		if(orientacao.equals('h')){
-			if(direcao.equals('d')) {
+	public void setPosicaoNavios(int tamanho, int orientacao, int direcao) {
+		if(orientacao == 2){
+			if(direcao == 2) {
 				if(tamanho == 1){
 					matriz[this.positionX][this.positionY] = 1;
 				}
@@ -90,7 +90,7 @@ public class Tabuleiro {
 							}
 					}
 				}
-			} else if (direcao.equals('e')){
+			} else if (direcao == 1){
 				if(tamanho == 1){
 					matriz[this.positionX][this.positionY] = 1;
 				}
@@ -118,8 +118,8 @@ public class Tabuleiro {
 					}
 				}
 			}
-		} else if(orientacao.equals('v')){
-			if(direcao.equals('c')) {
+		} else if(orientacao == 1 ){
+			if(direcao == 1) {
 				if(tamanho == 1){
 					matriz[this.positionX][this.positionY] = 1;
 				}
@@ -146,7 +146,7 @@ public class Tabuleiro {
 							}
 					}
 				}
-			} else if(direcao.equals('b')){
+			} else if(direcao == 2){
 				if(tamanho == 1){
 					matriz[this.positionX][this.positionY] = 1;
 				}
@@ -178,92 +178,27 @@ public class Tabuleiro {
 		
 	}
 
-	// 	public void setPosicaoNavios2(int tamanho) {
-	// 	if(tamanho == 1){
-	// 		matriz[this.positionX][this.positionY] = 1;
-	// 	}
-	// 	else if(tamanho == 2){
-	// 		for(int i = 0; i < 2; i++){
-	// 			matriz[this.positionX][this.positionY - i] = 1;
-	// 		}
-	// 	}
-	// 	else if(tamanho == 3) {
-	// 		for(int i = 0; i < 3; i++){
-	// 			matriz[this.positionX][this.positionY - i] = 1;
-	// 		}
-	// 	}
-	// 	else if(tamanho == 4){
-	// 		for(int i = 0; i < 4; i++){
-	// 			matriz[this.positionX][this.positionY - i] = 1;
-	// 		}
-	// 	}
-	// 	else if(tamanho == 5){
-	// 		for(int i = 0; i < 3; i++){
-	// 				for(int j = 0; j < 3; j++){
-	// 					matriz[this.positionX][this.positionY + i] = 1;        
-	// 					matriz[this.positionX + j][this.positionY + 1] = 1;							 																						
-	// 				}
-	// 		}
-	// 	}
-	// }
+	public void printTabInimigo(){
+		System.out.println("       0     1     2     3     4     5     6     7     8     9 ");
+        System.out.println("    +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+");
+        
+        for (int i = 0; i < 10; i++) {
+            System.out.print(i + " ");
+            
+            for (int j = 0; j < 10; j++) {
+                System.out.print("  |  " + ((matriz[i][j] == 1) ? 0 : matriz[i][j]));
+            }
+            System.out.println("  |");
+            System.out.println("    +-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+");
+        }
+	}
 
-	// public void setPosicaoNavios3(int tamanho) {
-	// 	if(tamanho == 1){
-	// 		matriz[this.positionX][this.positionY] = 1;
-	// 	}
-	// 	else if(tamanho == 2){
-	// 		for(int j = 0; j < 2; j++){
-	// 			matriz[this.positionX - j][this.positionY] = 1;
-	// 		}
-	// 	}
-	// 	else if(tamanho == 3) {
-	// 		for(int j = 0; j < 3; j++){
-	// 			matriz[this.positionX - j][this.positionY] = 1;
-	// 		}
-	// 	}
-	// 	else if(tamanho == 4){
-	// 		for(int j = 0; j < 4; j++){
-	// 			matriz[this.positionX - j][this.positionY] = 1;
-	// 		}
-	// 	}
-	// 	else if(tamanho == 5){
-	// 		for(int i = 0; i < 3; i++){
-	// 				for(int j = 0; j < 3; j++){
-	// 					matriz[this.positionX][this.positionY + i] = 1;        
-	// 					matriz[this.positionX + j][this.positionY + 1] = 1;							 																						
-	// 				}
-	// 		}
-	// 	}
-	// }
+	public void setPosicaoTiros(){
+		if(matriz[this.positionX][this.positionY] == 1) {
+			matriz[this.positionX][this.positionY] = 2;
+		}
+	}
 
-	// public void setPosicaoNavios4(int tamanho) {
-	// 	if(tamanho == 1){
-	// 		matriz[this.positionX][this.positionY] = 1;
-	// 	}
-	// 	else if(tamanho == 2){
-	// 		for(int j = 0; j < 2; j++){
-	// 			matriz[this.positionX + j][this.positionY] = 1;
-	// 		}
-	// 	}
-	// 	else if(tamanho == 3) {
-	// 		for(int j = 0; j < 3; j++){
-	// 			matriz[this.positionX + j][this.positionY] = 1;
-	// 		}
-	// 	}
-	// 	else if(tamanho == 4){
-	// 		for(int j = 0; j < 4; j++){
-	// 			matriz[this.positionX + j][this.positionY] = 1;
-	// 		}
-	// 	}
-	// 	else if(tamanho == 5){
-	// 		for(int i = 0; i < 3; i++){
-	// 				for(int j = 0; j < 3; j++){
-	// 					matriz[this.positionX][this.positionY + i] = 1;        
-	// 					matriz[this.positionX + j][this.positionY + 1] = 1;							 																						
-	// 				}
-	// 		}
-	// 	}
-	// }
 	
 
 

@@ -61,12 +61,10 @@ public class Jogador {
             if(orientacao == 1){
             System.out.println("Insira a direcao da posicao(baixo=1 ou cima=2):");
             } else if(orientacao == 2){
-                System.out.print("Insira a direcao da posicao(esquerda=1 ou direita=2");
+                System.out.print("Insira a direcao da posicao(esquerda=1 ou direita=2):");
             }
 
             int direcao = tabuleiro.InputNum(tabuleiro.scanner);
-
-            System.out.println(orientacao + " " + direcao);
 
             System.out.printf("Insira a posicao x do navio de %d cano(s): ", tamanho.getTamanho());
             int x = tabuleiro.InputNum(tabuleiro.scanner);

@@ -225,7 +225,6 @@ public class Tabuleiro implements TabuleiroInterface {
 		} else {
 			throw new Excecao("POSICAO INVALIDA!");
 		}
-
 	}
 }
 	

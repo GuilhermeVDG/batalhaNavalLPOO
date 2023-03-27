@@ -1,9 +1,10 @@
 package Tabuleiro;
 import Excecao.Excecao;
+import Interface.TabuleiroInterface;
 import java.util.Scanner;
 
 
-public class Tabuleiro {
+public class Tabuleiro implements TabuleiroInterface {
 	
 	public int linha = 10;
 	public int coluna = 10;

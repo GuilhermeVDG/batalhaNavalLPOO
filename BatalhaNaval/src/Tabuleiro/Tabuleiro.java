@@ -1,7 +1,5 @@
 package Tabuleiro;
-
-
-//import java.util.ArrayList;
+import Excecao.Excecao;
 import java.util.Scanner;
 
 
@@ -11,15 +9,12 @@ public class Tabuleiro {
 	public int coluna = 10;
 	public int positionX;
 	public int positionY;
-	public int direction;
 	public Scanner scanner = new Scanner(System.in);
 	
 	public int[][] matriz;
-	public int[][] Navios;
 	
 	public Tabuleiro() {
-		
-		
+
 		
 		matriz = new int[this.linha][this.coluna];
 		
@@ -50,15 +45,6 @@ public class Tabuleiro {
         }
 
             
-	}
-
-	public void setPosicaoPortaAvioes(int positionX, int positionY) {
-			for(int i = 0; i < 3; i++){
-					for(int j = 0; j < 3; j++){
-						matriz[this.positionX][this.positionY + i] = 1;        
-						matriz[this.positionX + j][this.positionY + 1] = 1;							 																						
-					}
-			} 
 	}
 
 	public void setPosicaoNavios(int tamanho, int orientacao, int direcao) {
@@ -230,10 +216,14 @@ public class Tabuleiro {
 		return scanner.nextLine();
 	}	
 
-	public void setPositions(int x, int y) {
+	public void setPositions(int x, int y) throws Excecao {
 
-		this.positionX = x;
-		this.positionY = y;
+		if (x >= 0 && x <= 9 && y >= 0 && y <= 9)  {
+			this.positionX = x;
+			this.positionY = y;
+		} else {
+			throw new Excecao("POSICAO INVALIDA!");
+		}
 
 	}
 }

@@ -3,6 +3,7 @@ import Tabuleiro.*;
 import Navios.*;
 import java.util.ArrayList;
 import java.util.Scanner;
+import Excecao.Excecao;
 
 public class Jogador {
      private Tabuleiro tabuleiro;
@@ -25,7 +26,7 @@ public class Jogador {
 
      }
 
-     public void ataqueNavios(Tabuleiro tabuleiroInimigo) {
+     public void ataqueNavios(Tabuleiro tabuleiroInimigo) throws Excecao{
         tabuleiroInimigo.printTabInimigo();
         
         for(int i = 0; i < 3; i++){
@@ -40,7 +41,7 @@ public class Jogador {
         }
      }
 
-     public void escolherPosicaoNavio (Navio tamanho) {
+     public void escolherPosicaoNavio (Navio tamanho) throws Excecao{
 
         if(tamanho.getTamanho() == 1) {
             tabuleiro.PrintTab(tabuleiro.matriz);
@@ -78,7 +79,7 @@ public class Jogador {
         }
      }
 
-     public void printNavios() {
+     public void printNavios() throws Excecao{
         ArrayList <Navio> navios = new ArrayList <Navio> ();
         navios.add(umCano);
         navios.add(doisCanos);

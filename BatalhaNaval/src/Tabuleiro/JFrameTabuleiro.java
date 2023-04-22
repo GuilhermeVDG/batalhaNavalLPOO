@@ -13,6 +13,9 @@ import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JPanel;
+
+import Excecao.Excecao;
+
 import java.awt.BorderLayout;
 
 public class JFrameTabuleiro extends JFrame{
@@ -106,12 +109,26 @@ public class JFrameTabuleiro extends JFrame{
 				for (int j = 0; j < 10; j++) {
 						if(tabuleiroJogador1.getMatriz()[i][j] == 0){
 							botoes[i][j] = new JButton();
-							botoes[i][j].addActionListener(new java.awt.event.ActionListener() {
-								public void actionPerformed(java.awt.event.ActionEvent evt) {
-            			System.out.println("Clicou");
-									// tabuleiroJogador1.setPositions(i, j); não funciona pq não reconhece o i e j no botão dps da iteração,
-									// tabuleiroJogador1.setPosicaoNavios(1,1,1); tem que achar alguma forma de salvar essas posições como atributo do botão pra poder usar dps
-								}
+			                botoes[i][j].putClientProperty("posicao_i", i); 
+			                botoes[i][j].putClientProperty("posicao_j", j); // salva as posicoes do botao
+			                
+			                botoes[i][j].addActionListener(new java.awt.event.ActionListener() {
+			                    public void actionPerformed(java.awt.event.ActionEvent evt) {
+			                    	
+			                    	JButton botaoClicado = (JButton) evt.getSource();
+			                        botaoClicado.setBackground(Color.GREEN); 
+			                       // System.out.println("Clicou");
+			                        int i = (int) botaoClicado.getClientProperty("posicao_i"); 
+			                        int j = (int) botaoClicado.getClientProperty("posicao_j"); // recupera as posiçoes do botao clicado
+			                        System.out.print(i);
+			                        System.out.print(j);
+			                        
+			                        try {
+										tabuleiroJogador1.setPositions(i, j);// salva a posicao do botao clicado no tabuleiro do jogador 1
+									} catch (Excecao e) {
+										e.printStackTrace();
+									} 								
+			                }
         			});
 							panelBatalha.add(botoes[i][j]);
 						}

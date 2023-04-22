@@ -17,14 +17,17 @@ import java.awt.BorderLayout;
 
 public class JFrameTabuleiro extends JFrame{
 	
-	private Tabuleiro tabuleiro;
 	private int choice;
+	private Tabuleiro tabuleiroJogador1;
+	private Tabuleiro tabuleiroJogador2;
 
 
 	public JFrameTabuleiro() {
-		
+		Jogador primeiroJogador = new Jogador(1);
+		Jogador segundoJogador = new Jogador(2);
+		this.tabuleiroJogador1 = primeiroJogador.getTabuleiro();
+		this.tabuleiroJogador2 = segundoJogador.getTabuleiro();
 		menu();
-		
 	}
 
 	
@@ -71,12 +74,10 @@ public class JFrameTabuleiro extends JFrame{
         });
 		
 		btnCustom.addActionListener(new java.awt.event.ActionListener() {
-			
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-            	
-            	jogarBatalha(btnBatalha, btnCustom, panel);
-            }
-        });
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				jogarCustom(btnBatalha, btnCustom, panel);
+			}
+		});
 	}
 	
 	public void jogarBatalha(JButton btnBatalha, JButton btnCustom, JPanel panel) {
@@ -97,17 +98,26 @@ public class JFrameTabuleiro extends JFrame{
 		this.setResizable(false);
 		this.add(panelBatalha);
 		
-        panelBatalha.setLayout(new GridLayout(10, 10));
+		panelBatalha.setLayout(new GridLayout(10, 10));
 
-        JButton[][] botoes = new JButton[10][10];
+		JButton[][] botoes = new JButton[10][10];
 
-        for (int i = 0; i < 10; i++) {
-            for (int j = 0; j < 10; j++) {
-                botoes[i][j] = new JButton();
-                panelBatalha.add(botoes[i][j]);
-            }
-        }
-		
+		for (int i = 0; i < 10; i++) {
+				for (int j = 0; j < 10; j++) {
+						if(tabuleiroJogador1.getMatriz()[i][j] == 0){
+							botoes[i][j] = new JButton();
+							botoes[i][j].addActionListener(new java.awt.event.ActionListener() {
+								public void actionPerformed(java.awt.event.ActionEvent evt) {
+            			System.out.println("Clicou");
+									// tabuleiroJogador1.setPositions(i, j); não funciona pq não reconhece o i e j no botão dps da iteração,
+									// tabuleiroJogador1.setPosicaoNavios(1,1,1); tem que achar alguma forma de salvar essas posições como atributo do botão pra poder usar dps
+								}
+        			});
+							panelBatalha.add(botoes[i][j]);
+						}
+				}
+		}
+
 	}
 	
 	public void jogarCustom(JButton btnBatalha, JButton btnCustom, JPanel panel ) {

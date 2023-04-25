@@ -28,8 +28,6 @@ import javax.swing.SwingConstants;
 public class JFrameTabuleiro extends JFrame{
 	
 	private int choice;
-	private Tabuleiro tabuleiroJogador1;
-	private Tabuleiro tabuleiroJogador2;
 	private DoisCanos doisCanos;
     private PortaAvioes portaAvioes;
     private QuatroCanos quatroCanos;
@@ -41,23 +39,30 @@ public class JFrameTabuleiro extends JFrame{
     private int quantidadeTresCanos;
     private int quantidadeQuatroCanos;
     private int quantidadePortaAvioes;
+    private int orientacao;
+    private int direcao;
+    private Jogador primeiroJogador;
+    private Jogador segundoJogador;
+    private Jogador jogadorDaVez;
 
 
 	public JFrameTabuleiro() {
-		Jogador primeiroJogador = new Jogador(1);
-		Jogador segundoJogador = new Jogador(2);
-		this.tabuleiroJogador1 = primeiroJogador.getTabuleiro();
-		this.tabuleiroJogador2 = segundoJogador.getTabuleiro();
-		this.umCano = new UmCano(primeiroJogador);
-		this.doisCanos = new DoisCanos(primeiroJogador);
-		this.tresCanos = new TresCanos(primeiroJogador);
-		this.quatroCanos = new QuatroCanos(primeiroJogador);
-		this.portaAvioes = new PortaAvioes(primeiroJogador);
+		this.primeiroJogador = new Jogador(1);
+		this.segundoJogador = new Jogador(2);
+		this.jogadorDaVez = this.primeiroJogador;
+		this.umCano = new UmCano(jogadorDaVez);
+		this.doisCanos = new DoisCanos(jogadorDaVez);
+		this.tresCanos = new TresCanos(jogadorDaVez);
+		this.quatroCanos = new QuatroCanos(jogadorDaVez);
+		this.portaAvioes = new PortaAvioes(jogadorDaVez);
 		this.quantidadeUmCano = this.umCano.getQuantidadeDeNavios();
 		this.quantidadeDoisCanos = this.doisCanos.getQuantidadeDeNavios();
 		this.quantidadeTresCanos = this.tresCanos.getQuantidadeDeNavios();
 		this.quantidadeQuatroCanos = this.quatroCanos.getQuantidadeDeNavios();
 		this.quantidadePortaAvioes = this.portaAvioes.getQuantidadeDeNavios();
+		this.tamanho = 1;
+		this.orientacao = 1;
+		this.direcao = 1;
 		
 		
 		menu();
@@ -88,12 +93,12 @@ public class JFrameTabuleiro extends JFrame{
 		btnBatalha.setBackground(Color.WHITE);
 		
 		
-		JButton btnCustom = new JButton("2 - Batalha Naval Custom");
-		btnCustom.setFont(new Font("Lucida Grande", Font.BOLD, 13));
-		btnCustom.setBounds(136, 236, 205, 29);
-		btnCustom.setBackground(Color.WHITE);
+		JButton btnSair = new JButton("2 - Sair");
+		btnSair.setFont(new Font("Lucida Grande", Font.BOLD, 13));
+		btnSair.setBounds(136, 236, 205, 29);
+		btnSair.setBackground(Color.WHITE);
 		
-		panel.add(btnCustom);
+		panel.add(btnSair);
 		panel.add(btnBatalha);
 		
 		
@@ -103,13 +108,13 @@ public class JFrameTabuleiro extends JFrame{
 			
             public void actionPerformed(java.awt.event.ActionEvent evt) {
             	
-            	jogarBatalha(btnBatalha, btnCustom, panel);
+            	jogarBatalha(btnBatalha, btnSair, panel);
             }
         });
 		
-		btnCustom.addActionListener(new java.awt.event.ActionListener() {
+		btnSair.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				jogarCustom(btnBatalha, btnCustom, panel);
+				dispose();
 			}
 		});
 	}
@@ -127,7 +132,7 @@ public class JFrameTabuleiro extends JFrame{
 		
 		JPanel matrizPanel = new JPanel(new GridLayout(10, 10));
 		
-		this.setTitle("Batalha Naval");
+		this.setTitle("Jogador " + jogadorDaVez.getNumero());
 		this.setVisible(true);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setBounds(100, 100, 500, 500);
@@ -149,11 +154,51 @@ public class JFrameTabuleiro extends JFrame{
         naviosPanel.add(navio4Button);
         naviosPanel.add(portaAviaoButton);
         
+        JPanel direcaoPanel = new JPanel(new GridLayout(1, 4));
+        
+        JButton paraBaixoButton = new JButton("v");
+        JButton paraCimaButton = new JButton("^");
+        JButton paraDireitaButton = new JButton(">");
+        JButton paraEsquerdaButton = new JButton("<");
+        
+        direcaoPanel.add(paraEsquerdaButton);
+        direcaoPanel.add(paraDireitaButton);
+        direcaoPanel.add(paraCimaButton);
+        direcaoPanel.add(paraBaixoButton);
+        
+        paraBaixoButton.addActionListener(new java.awt.event.ActionListener() {
+    		public void actionPerformed(java.awt.event.ActionEvent evt) {
+	    			orientacao = 1;
+	        		direcao = 1;
+                }
+    		});
+        
+        paraCimaButton.addActionListener(new java.awt.event.ActionListener() {
+    		public void actionPerformed(java.awt.event.ActionEvent evt) {
+	    			orientacao = 1;
+	        		direcao = 2;
+                }
+    		});
+        
+        paraDireitaButton.addActionListener(new java.awt.event.ActionListener() {
+    		public void actionPerformed(java.awt.event.ActionEvent evt) {
+	    			orientacao = 2;
+	        		direcao = 2;
+                }
+    		});
+        
+        paraEsquerdaButton.addActionListener(new java.awt.event.ActionListener() {
+    		public void actionPerformed(java.awt.event.ActionEvent evt) {
+            		orientacao = 2;
+            		direcao = 1;
+                }
+    		});
+        
+        
+        
 		navio1Button.addActionListener(new java.awt.event.ActionListener() {
-					
-
 		public void actionPerformed(java.awt.event.ActionEvent evt) {
-        	JOptionPane.showMessageDialog(null, quantidadeUmCano + " navios de um cano restantes");
+        		JOptionPane.showMessageDialog(null, quantidadeUmCano + " navios de um cano restantes");
             	tamanho = umCano.getTamanho();
 
             }
@@ -198,6 +243,7 @@ public class JFrameTabuleiro extends JFrame{
 		
 		panelBatalha.add(matrizPanel, BorderLayout.CENTER);
 		panelBatalha.add(naviosPanel, BorderLayout.NORTH);
+		panelBatalha.add(direcaoPanel, BorderLayout.SOUTH);
 
 	}
 	
@@ -225,7 +271,7 @@ public class JFrameTabuleiro extends JFrame{
 	public void carregarBotoes(JPanel matrizPanel, JButton[][] botoes) {
 		for (int i = 0; i < 10; i++) {
 				for (int j = 0; j < 10; j++) {
-						if(tabuleiroJogador1.getMatriz()[i][j] == 0){
+						if(jogadorDaVez.getTabuleiro().getMatriz()[i][j] == 0){
 							botoes[i][j] = new JButton();
 			                botoes[i][j].putClientProperty("posicao_i", i); 
 			                botoes[i][j].putClientProperty("posicao_j", j); // salva as posicoes do botao
@@ -240,52 +286,59 @@ public class JFrameTabuleiro extends JFrame{
 				                        int i = (int) botaoClicado.getClientProperty("posicao_i"); 
 				                        int j = (int) botaoClicado.getClientProperty("posicao_j"); 
 				                        
-				                        tabuleiroJogador1.setPositions(i, j); 
-				                        tabuleiroJogador1.setPosicaoNavios(tamanho,1,1);
+				                        jogadorDaVez.getTabuleiro().setPositions(i, j); 
+				                        jogadorDaVez.getTabuleiro().setPosicaoNavios(tamanho,orientacao,direcao);
 				                        quantidadeUmCano--;
 				                        trocarBotoes(matrizPanel, botoes);
-			                    	}
+			                    	} else
 			                    	if(tamanho == 2 && quantidadeDoisCanos > 0) {			              
 
 				                        int i = (int) botaoClicado.getClientProperty("posicao_i"); 
 				                        int j = (int) botaoClicado.getClientProperty("posicao_j"); 
 				                        
-				                        tabuleiroJogador1.setPositions(i, j); 
-				                        tabuleiroJogador1.setPosicaoNavios(tamanho,1,1);
+				                        jogadorDaVez.getTabuleiro().setPositions(i, j); 
+				                        jogadorDaVez.getTabuleiro().setPosicaoNavios(tamanho,orientacao,direcao);
 				                        quantidadeDoisCanos--;
 				                        trocarBotoes(matrizPanel, botoes);
-			                    	}
+			                    	} else
 			                    	if(tamanho == 3 && quantidadeTresCanos > 0) {
 			                 
 				                        int i = (int) botaoClicado.getClientProperty("posicao_i"); 
 				                        int j = (int) botaoClicado.getClientProperty("posicao_j"); 
 				                        
-				                        tabuleiroJogador1.setPositions(i, j); 
-				                        tabuleiroJogador1.setPosicaoNavios(tamanho,1,1);
+				                        jogadorDaVez.getTabuleiro().setPositions(i, j); 
+				                        jogadorDaVez.getTabuleiro().setPosicaoNavios(tamanho,orientacao,direcao);
 				                        quantidadeTresCanos--;
 				                        trocarBotoes(matrizPanel, botoes);
-			                    	}
+			                    	} else
 			                    	if(tamanho == 4 && quantidadeQuatroCanos > 0) {
 			                    		
 
 				                        int i = (int) botaoClicado.getClientProperty("posicao_i"); 
 				                        int j = (int) botaoClicado.getClientProperty("posicao_j"); 
 				                        
-				                        tabuleiroJogador1.setPositions(i, j); 
-				                        tabuleiroJogador1.setPosicaoNavios(tamanho,1,1);
+				                        jogadorDaVez.getTabuleiro().setPositions(i, j); 
+				                        jogadorDaVez.getTabuleiro().setPosicaoNavios(tamanho,orientacao,direcao);
 				                        quantidadeQuatroCanos--;
 				                        trocarBotoes(matrizPanel, botoes);
-			                    	}
+			                    	} else
 			                    	if(tamanho == 5 && quantidadePortaAvioes > 0) {			                    		
 
 				                        int i = (int) botaoClicado.getClientProperty("posicao_i"); 
 				                        int j = (int) botaoClicado.getClientProperty("posicao_j"); 
 				                        
-				                        tabuleiroJogador1.setPositions(i, j); 
-				                        tabuleiroJogador1.setPosicaoNavios(tamanho,1,1);
+				                        jogadorDaVez.getTabuleiro().setPositions(i, j); 
+				                        jogadorDaVez.getTabuleiro().setPosicaoNavios(tamanho,orientacao,direcao);
 				                        quantidadePortaAvioes--;
 				                        trocarBotoes(matrizPanel, botoes);
+			                    	} else if(quantidadeUmCano == 0 && quantidadeDoisCanos == 0 && quantidadeTresCanos == 0 && quantidadeQuatroCanos == 0 && quantidadePortaAvioes == 0 && jogadorDaVez.getNumero() == 1){
+			                    		jogadorDaVez = segundoJogador;
+			                    		resetPanel(matrizPanel, botoes);
+			                    	} else {
+			                    		JOptionPane.showMessageDialog(null, "Sem navios dessa categoria disponiveis");
 			                    	}
+			                    	
+			                    	
 			                    	
 																	
 			                    }
@@ -300,13 +353,36 @@ public class JFrameTabuleiro extends JFrame{
 	public void trocarBotoes(JPanel matrizPanel, JButton[][] botoes) {
 		for(int i = 0; i < 10; i++) {
 			for(int j = 0; j < 10; j++) {
-				if(tabuleiroJogador1.getMatriz()[i][j] == 1) {
-					botoes[i][j].setBackground(Color.green);
+				if(jogadorDaVez.getTabuleiro().getMatriz()[i][j] == 1) {
+					botoes[i][j].setBackground(Color.black);
 					
 				}
 				matrizPanel.add(botoes[i][j]);
 			}
 		}
+	}
+	
+	public void resetPanel(JPanel matrizPanel, JButton[][] botoes) {
+		for(int i = 0; i < 10; i++) {
+			for(int j = 0; j < 10; j++) {
+				this.remove(botoes[i][j]);
+			}
+		}
+		this.remove(matrizPanel);
+		this.dispose();
+		
+		this.setTitle("Jogador " + jogadorDaVez.getNumero());
+		this.setVisible(true);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setBounds(100, 100, 500, 500);
+		this.setResizable(false);
+		
+		JPanel newMatrizPanel = new JPanel(new GridLayout(10, 10));
+		JButton[][] newBotoes = new JButton[10][10];
+		getContentPane().add(newMatrizPanel);
+		System.out.print(jogadorDaVez.getNumero());
+		carregarBotoes(newMatrizPanel, newBotoes);
+		
 	}
 	
 	public void setChoice(int choice) {

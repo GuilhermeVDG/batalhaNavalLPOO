@@ -44,6 +44,8 @@ public class JFrameTabuleiro extends JFrame{
     private Jogador primeiroJogador;
     private Jogador segundoJogador;
     private Jogador jogadorDaVez;
+    private boolean isAtaque;
+    private int quantidadeAtaque;
 
 
 	public JFrameTabuleiro() {
@@ -63,6 +65,7 @@ public class JFrameTabuleiro extends JFrame{
 		this.tamanho = 1;
 		this.orientacao = 1;
 		this.direcao = 1;
+		this.isAtaque = false;
 		
 		
 		menu();
@@ -269,13 +272,14 @@ public class JFrameTabuleiro extends JFrame{
 	}
 	
 	public void carregarBotoes(JPanel matrizPanel, JButton[][] botoes) {
+		System.out.println(isAtaque);
 		for (int i = 0; i < 10; i++) {
 				for (int j = 0; j < 10; j++) {
 						if(jogadorDaVez.getTabuleiro().getMatriz()[i][j] == 0){
 							botoes[i][j] = new JButton();
 			                botoes[i][j].putClientProperty("posicao_i", i); 
 			                botoes[i][j].putClientProperty("posicao_j", j); // salva as posicoes do botao
-			                
+			                botoes[i][j].setBackground(Color.white);
 			                botoes[i][j].addActionListener(new java.awt.event.ActionListener() {
 			                    public void actionPerformed(java.awt.event.ActionEvent evt) {
 			          
@@ -331,9 +335,49 @@ public class JFrameTabuleiro extends JFrame{
 				                        jogadorDaVez.getTabuleiro().setPosicaoNavios(tamanho,orientacao,direcao);
 				                        quantidadePortaAvioes--;
 				                        trocarBotoes(matrizPanel, botoes);
-			                    	} else if(quantidadeUmCano == 0 && quantidadeDoisCanos == 0 && quantidadeTresCanos == 0 && quantidadeQuatroCanos == 0 && quantidadePortaAvioes == 0 && jogadorDaVez.getNumero() == 1){
+			                    	} else if(quantidadeUmCano == 0 && quantidadeDoisCanos == 0 && quantidadeTresCanos == 0 && quantidadeQuatroCanos == 0 && quantidadePortaAvioes == 0 && jogadorDaVez.getNumero() == 1 && !isAtaque){
 			                    		jogadorDaVez = segundoJogador;
-			                    		resetPanel(matrizPanel, botoes);
+			                    		resetBotoes(matrizPanel, botoes);
+			                    		
+			                    		quantidadeUmCano = 4;
+			                    		quantidadeDoisCanos = 3;
+			                    		quantidadeTresCanos = 2;
+			                    		quantidadeQuatroCanos = 1;
+			                    		quantidadePortaAvioes = 1;
+			                    	} else if (quantidadeUmCano == 0 && quantidadeDoisCanos == 0 && quantidadeTresCanos == 0 && quantidadeQuatroCanos == 0 && quantidadePortaAvioes == 0 && jogadorDaVez.getNumero() == 2 && !isAtaque){
+			                    		jogadorDaVez = primeiroJogador;
+			                    		resetBotoes(matrizPanel, botoes);
+			                    		isAtaque = true;
+			                    		quantidadeAtaque = 3;
+			                    	} else if (quantidadeUmCano == 0 && quantidadeDoisCanos == 0 && quantidadeTresCanos == 0 && quantidadeQuatroCanos == 0 && quantidadePortaAvioes == 0 && jogadorDaVez.getNumero() == 1 && !isAtaque){
+			                    		jogadorDaVez = segundoJogador;
+			                    		resetBotoes(matrizPanel, botoes);
+			                    		isAtaque = true;
+			                    		quantidadeAtaque = 3;
+			                    	} else if(isAtaque && jogadorDaVez.equals(primeiroJogador) && quantidadeAtaque > 0){
+			                    		int i = (int) botaoClicado.getClientProperty("posicao_i"); 
+				                        int j = (int) botaoClicado.getClientProperty("posicao_j");
+				                        System.out.print("jaoijdaiodnakdnkadnm");
+				                        
+				                        jogadorDaVez.ataqueNavios(segundoJogador.getTabuleiro(), i, j);
+				                        trocarBotoes(matrizPanel, botoes);
+				                        quantidadeAtaque--;
+			                    	} else if(isAtaque && jogadorDaVez.equals(segundoJogador) && quantidadeAtaque > 0){
+			                    		int i = (int) botaoClicado.getClientProperty("posicao_i"); 
+				                        int j = (int) botaoClicado.getClientProperty("posicao_j");
+				                        
+				                        jogadorDaVez.ataqueNavios(primeiroJogador.getTabuleiro(), i, j);
+				                        
+				                        quantidadeAtaque--;
+				                        trocarBotoes(matrizPanel, botoes);
+				                    }else if(isAtaque && quantidadeAtaque <= 0 && jogadorDaVez.getNumero() == 1){
+			                    		jogadorDaVez = segundoJogador;
+			                    		resetBotoes(matrizPanel, botoes);
+			                    		quantidadeAtaque = 3;
+			                    	} else if(isAtaque && quantidadeAtaque <= 0 && jogadorDaVez.getNumero() == 2){
+			                    		jogadorDaVez = primeiroJogador;
+			                    		resetBotoes(matrizPanel, botoes);
+			                    		quantidadeAtaque = 3;
 			                    	} else {
 			                    		JOptionPane.showMessageDialog(null, "Sem navios dessa categoria disponiveis");
 			                    	}
@@ -344,7 +388,7 @@ public class JFrameTabuleiro extends JFrame{
 			                    }
 			                });
 			                
-						} 
+						}
 						matrizPanel.add(botoes[i][j]);
 				}
 		}
@@ -353,36 +397,28 @@ public class JFrameTabuleiro extends JFrame{
 	public void trocarBotoes(JPanel matrizPanel, JButton[][] botoes) {
 		for(int i = 0; i < 10; i++) {
 			for(int j = 0; j < 10; j++) {
-				if(jogadorDaVez.getTabuleiro().getMatriz()[i][j] == 1) {
+				if(jogadorDaVez.getTabuleiro().getMatriz()[i][j] == 1 && !isAtaque) {
 					botoes[i][j].setBackground(Color.black);
 					
+				}else if(jogadorDaVez.equals(primeiroJogador) && segundoJogador.getTabuleiro().getMatriz()[i][j] == 2) {
+					botoes[i][j].setBackground(Color.red);
+				} else if(jogadorDaVez.equals(segundoJogador) && primeiroJogador.getTabuleiro().getMatriz()[i][j] == 2) {
+					botoes[i][j].setBackground(Color.red);
 				}
 				matrizPanel.add(botoes[i][j]);
 			}
 		}
 	}
 	
-	public void resetPanel(JPanel matrizPanel, JButton[][] botoes) {
-		for(int i = 0; i < 10; i++) {
-			for(int j = 0; j < 10; j++) {
-				this.remove(botoes[i][j]);
-			}
-		}
-		this.remove(matrizPanel);
-		this.dispose();
+	public void resetBotoes(JPanel matrizPanel, JButton[][] botoes) {
 		
 		this.setTitle("Jogador " + jogadorDaVez.getNumero());
-		this.setVisible(true);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setBounds(100, 100, 500, 500);
-		this.setResizable(false);
-		
-		JPanel newMatrizPanel = new JPanel(new GridLayout(10, 10));
-		JButton[][] newBotoes = new JButton[10][10];
-		getContentPane().add(newMatrizPanel);
-		System.out.print(jogadorDaVez.getNumero());
-		carregarBotoes(newMatrizPanel, newBotoes);
-		
+		for(int i = 0; i < 10; i++) {
+			for(int j = 0; j < 10; j++) {
+				botoes[i][j].setBackground(Color.white);
+				matrizPanel.add(botoes[i][j]);
+			}
+		}
 	}
 	
 	public void setChoice(int choice) {

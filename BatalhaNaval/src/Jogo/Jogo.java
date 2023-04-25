@@ -8,7 +8,6 @@ import Menu.Menu;
 
 public class Jogo {
     public static void main(String args[]) throws Excecao{
-        new JFrameTabuleiro();
-    	
-}
+        new JFrameTabuleiro();   	
+    }
 }

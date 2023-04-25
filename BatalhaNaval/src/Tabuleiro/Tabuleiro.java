@@ -217,14 +217,11 @@ public class Tabuleiro implements TabuleiroInterface {
 		return scanner.nextLine();
 	}	
 
-	public void setPositions(int x, int y) throws Excecao {
+	public void setPositions(int x, int y)  {
 
 		if (x >= 0 && x <= 9 && y >= 0 && y <= 9)  {
 			this.positionX = x;
-			this.positionY = y;
-		} else {
-			throw new Excecao("POSICAO INVALIDA!");
-		}
+			this.positionY = y;}
 	}
 }
 	
